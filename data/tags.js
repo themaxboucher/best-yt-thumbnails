@@ -9,49 +9,45 @@ export const tags = [
     name: "Shocking",
     description: "Thumbnails that provoke shock through scenery... Change to 'Shock & Awe'.",
     color: "yellow",
-    refImage: "/thumbnails/t7.jpg",
+    refImage: "https://i.ytimg.com/vi/BUYt4byDGm4/sddefault.jpg",
   },
   {
     name: "Comparison",
     description:
       "Thumbnails that use a headers often to suplement the videos title.",
     color: "orange",
-    refImage: "/thumbnails/t1.jpg",
+    refImage: "https://i.ytimg.com/vi/BUYt4byDGm4/sddefault.jpg",
   },
   {
     name: "Screenshot",
     description:
       "Thumbnails that use a headers often to suplement the videos title.",
     color: "blue",
-    refImage: "/thumbnails/t2.jpg",
+    refImage: "https://i.ytimg.com/vi/BUYt4byDGm4/sddefault.jpg",
   },
   {
     name: "Big Face",
     description:
       "This type of thumbnail uses a close-up portrait of a person to create a personal and engaging thumbnail that draws the viewer in.",
     color: "pink",
-    refImage: "/thumbnails/t3.jpg",
   },
   {
     name: "Social Hacking",
     description:
       "These are thumbnails that use a headers often to suplement the videos title.",
     color: "red",
-    refImage: "/thumbnails/t5.jpg",
   },
   {
     name: "Split Screen",
     description:
       "These are thumbnails that use a headers often to suplement the videos title.",
     color: "blue",
-    refImage: "/thumbnails/t6.jpg",
   },
   {
     name: "Aesthetic",
     description:
       "Thumbnails that grab attention due to the beauty of the design.",
     color: "pink",
-    refImage: "/thumbnails/t4.jpg",
   },
   {
     name: "Photography",
