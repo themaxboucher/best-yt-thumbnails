@@ -1,5 +1,6 @@
 "use client";
 
+import uploadImage from "@/actions/uploadThumbnail";
 import writeThumbnailDoc from "@/actions/writeThumbnailDoc";
 import Tag from "@/components/tag";
 import Button from "@/components/ui/button";
@@ -16,11 +17,14 @@ import { useState } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { HiCalendar } from "react-icons/hi";
 import { IoMdArrowRoundForward } from "react-icons/io";
+import { CgSpinner } from "react-icons/cg";
+import SubmitFormSuccess from "./submit-form-success";
 
 export default function SubmitForm() {
   const [URL, setURL] = useState(""); // Not sure if nessecary
   const [thumbnailData, setThumbnailData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingChange, setIsLoadingChange] = useState(false);
+  const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
   const [isValidURL, setIsValidURL] = useState(true);
   const [selectedTags, setSelectedTags] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -31,10 +35,10 @@ export default function SubmitForm() {
       setIsValidURL(true);
     } else if (isValidYouTubeURL(e.target.value)) {
       setIsValidURL(true);
-      setIsLoading(true);
+      setIsLoadingChange(true);
       const videoID = getYouTubeVideoId(e.target.value);
       const thumbnailObj = await fetchYouTubeData(videoID);
-      setIsLoading(false);
+      setIsLoadingChange(false);
       if (!thumbnailObj) {
         setIsValidURL(false);
         return;
@@ -45,7 +49,7 @@ export default function SubmitForm() {
     }
   }
 
-  function onSubmitHandler(e) {
+  async function onSubmitHandler(e) {
     e.preventDefault();
     if (!isValidURL || !thumbnailData) {
       alert("Please add a valid YouTube video URL.");
@@ -55,15 +59,28 @@ export default function SubmitForm() {
       alert("Please select at least one tag.");
       return;
     }
+    setIsLoadingSubmit(true);
+
+    // Modify thumbnail data object
     const submitData = thumbnailData;
     submitData.tags = selectedTags;
-    // Remove data from the object that should be called from the YouTube API every time
-    delete submitData.channel;
-    delete submitData.video.viewCount;
-    writeThumbnailDoc(submitData);
-    setSelectedTags([]);
-    setThumbnailData(null);
-    setIsSubmitted(true);
+    // TODO: remove unessecary data from the object
+    //delete submitData.channel;
+    //delete submitData.video.viewCount;
+
+    const success = await writeThumbnailDoc(submitData);
+
+    if (success) {
+      setSelectedTags([]);
+      setThumbnailData(null);
+      setIsSubmitted(true);
+      setIsLoadingSubmit(false);
+    } else {
+      alert(
+        "There was an error when submiting your thumbnail Please try again later."
+      );
+      setIsLoadingSubmit(false);
+    }
   }
 
   return (
@@ -73,7 +90,7 @@ export default function SubmitForm() {
           <div className="grid grid-cols-2 w-full auto-rows-auto gap-12">
             <div
               className={`space-y-4 ease-out duration-300 ${
-                isLoading && "animate-pulse"
+                isLoadingChange && "animate-pulse"
               } ${
                 thumbnailData && (!isValidURL || URL === "") && "opacity-50"
               }`}
@@ -88,7 +105,7 @@ export default function SubmitForm() {
                     height={thumbnailData.thumbnails.standard.height}
                   />
                 ) : (
-                  <div className="aspect-video object-cover bg-slate-200 flex justify-center items-center"></div>
+                  <div className="aspect-video object-cover bg-slate-100 border-2 border-slate-200 rounded-xl flex justify-center items-center"></div>
                 )}
               </div>
               {thumbnailData ? (
@@ -103,13 +120,13 @@ export default function SubmitForm() {
                   <div className="size-10 rounded-full relative overflow-hidden">
                     {thumbnailData ? (
                       <Image
-                        src={thumbnailData.channel.thumbnails.maxres.url}
+                        src={thumbnailData.channel.thumbnails.high.url}
                         alt={thumbnailData.channel.title}
                         fill
                         priority
                       />
                     ) : (
-                      <div className="absolute inset-0 size-full bg-slate-200"></div>
+                      <div className="absolute inset-0 size-full bg-slate-100 border-2 border-slate-200 rounded-full"></div>
                     )}
                   </div>
                   <div>
@@ -200,34 +217,21 @@ export default function SubmitForm() {
                     ))}
                   </div>
                 </div>
-                <Button>
+                <Button disabled={isLoadingSubmit}>
                   Submit thumbnail
-                  <IoMdArrowRoundForward />
+                  {!isLoadingSubmit ? (
+                    <IoMdArrowRoundForward className="size-4" />
+                  ) : (
+                    <CgSpinner className=" size-4 animate-spin" />
+                  )}
                 </Button>
               </form>
+              <button onClick={uploadImage}>UPLOAD IMAGE</button>
             </div>
           </div>
         </section>
       ) : (
-        <>
-          <main className="mx-auto w-full max-w-[80rem] px-10 py-16 flex flex-col justify-start items-center gap-3 h-screen">
-            <div className="space-y-3 max-w-lg text-center">
-              <h1>Success!</h1>
-              <p>
-                The thumbnail you submitted has been sent for review and will be
-                published shortly if it meets our submission guidelines.
-              </p>
-              <ButtonGroup>
-                <Button onClick={() => setIsSubmitted(false)}>
-                  Submit another thumbnail
-                </Button>
-                <Button path="/" secondary>
-                  Explore thumbnails
-                </Button>
-              </ButtonGroup>
-            </div>
-          </main>
-        </>
+        <SubmitFormSuccess setIsSubmitted={setIsSubmitted} />
       )}
     </>
   );

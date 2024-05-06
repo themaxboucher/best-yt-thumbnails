@@ -7,6 +7,8 @@ export default function Button({
   secondary,
   fullWidth,
   label,
+  type,
+  disabled
 }) {
   // Dynamic tailwind classes based on the components props
   const dynamicStyles = {
@@ -31,7 +33,7 @@ export default function Button({
           {children}
         </Link>
       ) : (
-        <button onClick={onClick} className={classes}>
+        <button onClick={onClick} type={type} disabled={disabled} className={classes}>
           {buttonLabel}
           {children}
         </button>
