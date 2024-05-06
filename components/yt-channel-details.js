@@ -9,7 +9,7 @@ export default function YTChannelDetails({
 }) {
   return (
     <a
-      href={`https://www.youtube.com/${customUrl}`}
+      href={customUrl && `https://www.youtube.com/${customUrl}`}
       target="_blank"
       className="flex justify-start items-center gap-3"
     >

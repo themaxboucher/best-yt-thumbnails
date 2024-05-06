@@ -1,24 +1,18 @@
 "use client";
 
-import uploadImage from "@/actions/uploadThumbnail";
 import writeThumbnailDoc from "@/actions/writeThumbnailDoc";
 import Tag from "@/components/tag";
 import Button from "@/components/ui/button";
-import ButtonGroup from "@/components/ui/button-group";
 import Input from "@/components/ui/input";
 import { tags } from "@/data/tags";
 import { fetchYouTubeData } from "@/data/youtube";
-import abbreviateNumber from "@/helper-functions/abbreviateNumber";
 import getYouTubeVideoId from "@/helper-functions/getYouTubeVideoId";
 import isValidYouTubeURL from "@/helper-functions/isValidYouTubeURL";
-import timeAgo from "@/helper-functions/timeAgo";
-import Image from "next/image";
 import { useState } from "react";
-import { AiFillEye } from "react-icons/ai";
-import { HiCalendar } from "react-icons/hi";
 import { IoMdArrowRoundForward } from "react-icons/io";
 import { CgSpinner } from "react-icons/cg";
 import SubmitFormSuccess from "./submit-form-success";
+import SubmitPreview from "./submit-preview";
 
 export default function SubmitForm() {
   const [URL, setURL] = useState(""); // Not sure if nessecary
@@ -88,99 +82,12 @@ export default function SubmitForm() {
       {!isSubmitted ? (
         <section className="mx-auto w-full max-w-[80rem] px-10 py-16 flex flex-col justify-start items-center gap-8">
           <div className="grid grid-cols-2 w-full auto-rows-auto gap-12">
-            <div
-              className={`space-y-4 ease-out duration-300 ${
-                isLoadingChange && "animate-pulse"
-              } ${
-                thumbnailData && (!isValidURL || URL === "") && "opacity-50"
-              }`}
-            >
-              <div className="overflow-hidden rounded-xl">
-                {thumbnailData ? (
-                  <Image
-                    className="aspect-video object-cover"
-                    src={thumbnailData.thumbnails.standard.url}
-                    alt={thumbnailData.video.title}
-                    width={thumbnailData.thumbnails.standard.width}
-                    height={thumbnailData.thumbnails.standard.height}
-                  />
-                ) : (
-                  <div className="aspect-video object-cover bg-slate-100 border-2 border-slate-200 rounded-xl flex justify-center items-center"></div>
-                )}
-              </div>
-              {thumbnailData ? (
-                <p className="text-slate-900 font-medium text-lg">
-                  {thumbnailData.video.title}
-                </p>
-              ) : (
-                <div className="bg-slate-200 my-2 h-5 w-[80%] rounded-lg"></div>
-              )}
-              <div className="flex justify-between items-center">
-                <div className="flex justify-start items-center gap-2">
-                  <div className="size-10 rounded-full relative overflow-hidden">
-                    {thumbnailData ? (
-                      <Image
-                        src={thumbnailData.channel.thumbnails.high.url}
-                        alt={thumbnailData.channel.title}
-                        fill
-                        priority
-                      />
-                    ) : (
-                      <div className="absolute inset-0 size-full bg-slate-100 border-2 border-slate-200 rounded-full"></div>
-                    )}
-                  </div>
-                  <div>
-                    {thumbnailData ? (
-                      <p className="text-slate-900 text-sm font-medium">
-                        {thumbnailData.channel.title}
-                      </p>
-                    ) : (
-                      <div className="bg-slate-200 my-2 h-3 w-20 rounded-lg"></div>
-                    )}
+            <SubmitPreview
+              isLoadingChange={isLoadingChange}
+              isValidURL={isValidURL}
+              thumbnailData={thumbnailData}
+            />
 
-                    {thumbnailData ? (
-                      <p className="text-xs">
-                        {abbreviateNumber(
-                          thumbnailData.channel.subscriberCount
-                        )}{" "}
-                        subscribers
-                      </p>
-                    ) : (
-                      <div className="bg-slate-200 my-2 h-2 w-16 rounded-lg"></div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex justify-start items-center gap-5 text-sm font-medium text-slate-600">
-                  {thumbnailData ? (
-                    <div
-                      className="flex justify-center items-center gap-1"
-                      title={`${abbreviateNumber(
-                        thumbnailData.video.viewCount
-                      )} views`}
-                    >
-                      <AiFillEye className="size-4" />
-                      {abbreviateNumber(thumbnailData.video.viewCount)}
-                    </div>
-                  ) : (
-                    <div className="bg-slate-200 my-2 h-4 w-10 rounded-lg"></div>
-                  )}
-                  {thumbnailData ? (
-                    <div
-                      className="flex justify-center items-center gap-1"
-                      title={`Published ${timeAgo(
-                        thumbnailData.video.publishedAt
-                      )}`}
-                    >
-                      <HiCalendar className="size-4" />
-                      {timeAgo(thumbnailData.video.publishedAt)}
-                    </div>
-                  ) : (
-                    <div className="bg-slate-200 my-2 h-4 w-10 rounded-lg"></div>
-                  )}
-                </div>
-              </div>
-            </div>
             <div>
               <form onSubmit={onSubmitHandler} className="space-y-8">
                 <div className="space-y-3">
@@ -226,7 +133,6 @@ export default function SubmitForm() {
                   )}
                 </Button>
               </form>
-              <button onClick={uploadImage}>UPLOAD IMAGE</button>
             </div>
           </div>
         </section>
