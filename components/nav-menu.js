@@ -12,6 +12,7 @@ import Image from "next/image";
 import getFirstLetter from "@/helper-functions/getFirstLetter";
 import ButtonGroup from "./ui/button-group";
 import ThemeSelect from "./theme-select";
+import logOut from "@/actions/logOut";
 
 export default function NavMenu() {
   const [user] = useAuthState(auth);
@@ -101,8 +102,8 @@ export default function NavMenu() {
                 <Menu.Item className="p-2 rounded-lg">
                   {({ active }) => (
                     <a
-                      className={`${active && "bg-slate-50"}`}
-                      href="/account-settings"
+                      className={`${active && "bg-slate-50"} cursor-pointer`}
+                      onClick={() => logOut()}
                     >
                       Log out
                     </a>
