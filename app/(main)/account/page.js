@@ -16,8 +16,8 @@ export default function AccountPage() {
   // Block page from non authenticated users
   if (!user && !loading) redirect("/auth/login");
 
+  // Only render content if user is authenticated
   if (user)
-    // Only render content if user is authenticated
     return (
       <section className="mx-auto w-full max-w-[80rem] px-10 py-16 flex flex-col justify-start items-center gap-8">
         <div className="flex justify-between items-center gap-6 w-full my-10 ">
