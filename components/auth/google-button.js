@@ -18,7 +18,7 @@ export default function GoogleButton() {
   };
 
   return (
-    <Button onClick={googleLoginHandler} secondary fullWidth>
+    <Button onClick={googleLoginHandler} type="button" secondary fullWidth>
       <FcGoogle className="size-[1.1rem]" />
       <span>Continue with Google</span>
     </Button>
