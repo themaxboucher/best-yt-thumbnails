@@ -1,5 +1,6 @@
 "use client";
 
+import Logo from "@/components/logo";
 import { auth } from "@/data/firebase";
 import { redirect } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -15,7 +16,9 @@ export default function AuthLayout({ children }) {
     return (
       <main>
         <div className="flex min-h-screen flex-col justify-between py-8">
-          <div className="mb-8 flex justify-center">LOGO</div>
+          <div className="mb-8 flex justify-center">
+            <Logo />
+          </div>
           {children}
           <div>Public Beta</div>
         </div>

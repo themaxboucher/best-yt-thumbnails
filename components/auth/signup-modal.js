@@ -4,6 +4,7 @@ import { useContext } from "react";
 import SignupForm from "./signup-form";
 import { AuthModalContext } from "@/store/auth-modal-context";
 import Modal from "../ui/modal";
+import Logo from "../logo";
 
 export default function SignupModal() {
   const useAuthModalContext = useContext(AuthModalContext);
@@ -15,7 +16,7 @@ export default function SignupModal() {
       isOpen={useAuthModalContext.authModalOpen}
       closeModal={useAuthModalContext.closeAuthModal}
     >
-      <p>LOGO</p>
+      <Logo />
       <SignupForm />
     </Modal>
   );
