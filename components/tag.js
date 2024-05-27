@@ -30,14 +30,23 @@ export default function Tag({
 
   // Get current sort filter from the current path
   const slugParts = breakdownSlug(pathname);
-  const currentSortFilter = slugParts[0];
+  const slugStart = slugParts[0];
+  const slugifiedSortFilters = sortFilters.map((filter) =>
+    slugifyLower(filter)
+  );
+  const hasSortFilter = slugifiedSortFilters.includes(slugStart);
 
   // Create the tags link path based on the current sort filter
   function pathConstructor() {
-    if (name === "All") {
-      return `/${currentSortFilter}`;
+    if (hasSortFilter) {
+      const currentSortFilter = slugStart;
+      if (name === "All") {
+        return `/${currentSortFilter}`;
+      } else {
+        return `/${currentSortFilter}/${slugifyLower(name)}`;
+      }
     } else {
-      return `/${currentSortFilter}/${slugifyLower(name)}`;
+      return `/${slugifyLower(sortFilters[0])}/${slugifyLower(name)}`;
     }
   }
 
