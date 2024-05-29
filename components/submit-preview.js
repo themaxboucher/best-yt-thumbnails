@@ -18,10 +18,10 @@ export default function SubmitPreview({
         {thumbnailData ? (
           <Image
             className="aspect-video object-cover"
-            src={thumbnailData.thumbnails.standard.url}
+            src={thumbnailData.video.thumbnails.maxres.url}
             alt={thumbnailData.video.title}
-            width={thumbnailData.thumbnails.standard.width}
-            height={thumbnailData.thumbnails.standard.height}
+            width={thumbnailData.video.thumbnails.maxres.width}
+            height={thumbnailData.video.thumbnails.maxres.height}
           />
         ) : (
           <div className="aspect-video object-cover bg-slate-100 border-2 border-slate-200 rounded-xl flex justify-center items-center"></div>

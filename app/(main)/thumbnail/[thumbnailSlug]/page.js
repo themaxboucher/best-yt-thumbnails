@@ -8,8 +8,6 @@ import YTChannelDetails from "@/components/yt-channel-details";
 import YTVideoTitle from "@/components/yt-video-title";
 import readThumbnailDoc from "@/actions/readThumbnailDoc";
 import { notFound } from "next/navigation";
-import LoadingCard from "@/components/loading/loading-card";
-import SectionLarge from "@/components/layout/section-large";
 
 export default async function ThumbnailPage({ params }) {
   // Get our own data
@@ -21,10 +19,11 @@ export default async function ThumbnailPage({ params }) {
 
   // Get data from the YouTube API
   const youtubeData = await fetchYouTubeData(params.thumbnailSlug);
+  const dynamicYoutubeData = youtubeData.dynamic;
 
-  // Fix
+  const latestVersion = thumbnailData.versions.current;
   const thumbnailTags = tags.filter((tag) =>
-    thumbnailData.tags.includes(tag.name)
+    latestVersion.tags.includes(tag.name)
   );
 
   return (
@@ -35,27 +34,27 @@ export default async function ThumbnailPage({ params }) {
             <div className="relative object-cover aspect-video w-full p-20 border border-slate-100 bg bg-slate-50 overflow-hidden rounded-xl shadow-xl">
               <Image
                 className="aspect-video object-cover"
-                src={youtubeData.thumbnails.maxres.url}
-                alt={youtubeData.video.title}
+                src={latestVersion.thumbnails.maxres.url}
+                alt={latestVersion.title}
                 fill
               />
             </div>
           </div>
           <div className="w-[34rem] border-l border-slate-100 px-10 py-12 flex flex-col justify-start items-stretch gap-8 min-h-full">
             <YTChannelDetails
-              profilePic={youtubeData.channel.thumbnails.high.url}
-              channelTitle={youtubeData.channel.title}
-              subscriberCount={youtubeData.channel.subscriberCount}
-              customUrl={youtubeData.channel.customUrl}
+              profilePic={dynamicYoutubeData.channel.thumbnails.high.url}
+              channelTitle={dynamicYoutubeData.channel.title}
+              subscriberCount={dynamicYoutubeData.channel.subscriberCount}
+              customUrl={dynamicYoutubeData.channel.customUrl}
             />
             <div className="space-y-2">
               <YTVideoTitle
-                videoTitle={youtubeData.video.title}
-                videoId={youtubeData.video.id}
+                videoTitle={latestVersion.title}
+                videoId={thumbnailData.video.id}
               />
               <YTVideoStats
-                viewCount={youtubeData.video.viewCount}
-                publishedAt={youtubeData.video.publishedAt}
+                viewCount={dynamicYoutubeData.video.viewCount}
+                publishedAt={dynamicYoutubeData.video.publishedAt}
               />
             </div>
             <div className="flex justify-start items-start gap-2 flex-wrap">
@@ -68,42 +67,21 @@ export default async function ThumbnailPage({ params }) {
 
             <div className="flex justify-start items-center gap-3 mt-4">
               <ThumbnailInteraction
+                thumbnailId={thumbnailData.id}
                 type="save"
-                number={youtubeData.statistics.saves}
+                savedBy={thumbnailData.meta.savedBy}
                 big
               />
               <ThumbnailInteraction
+                thumbnailId={thumbnailData.id}
                 type="favorite"
-                number={youtubeData.statistics.favorites}
+                favoritedBy={thumbnailData.meta.favoritedBy}
                 big
               />
             </div>
           </div>
         </div>
       </section>
-      {/*
-      <SectionLarge>
-        <h2 className="heading-3">More from channel</h2>
-        <div className="flex justify-start items-center gap-2 w-full overflow-scroll">
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-          <LoadingCard />
-        </div>
-      </SectionLarge>
-      <section>
-        <h2>Similar thumbnails</h2>
-        <div></div>
-      </section>
-      */}
     </>
   );
 }

@@ -1,44 +1,32 @@
 "use server";
 
 import { db } from "@/data/firebase";
-import { collection, query, getDocs, where, limit, orderBy } from "firebase/firestore";
+import {
+  collection,
+  query,
+  getDocs,
+  where,
+  limit,
+  orderBy,
+} from "firebase/firestore";
 
 export default async function readThumbnailDocs(sortFilter, tagFilter) {
-  console.log(`sortFilter = ${sortFilter} tagFilter = ${tagFilter}`);
-
   try {
     // Create a query based on the sort and tag filters
-    // if tagFilter where("tags", "array-contains", tagFilter)
-    // if sortFilter then find out what sortFilter to determine "orderBy"
-    // Trending (default?): some combination of favorites and saves devided by when the thumbnail was added to the site
-    // Popular: favorites and saves
-    // Recently Added: most recently add (add field in db with server timestamp)
-    // New on YouTube: check pulishedAt
-    // Popular on YouTube: orderBy("video.viewCount", "desc"),
-    // Channel Outliers: thumbnails belonging to videos that are significantly more popular then the rest of the channels videos
-    let q;
-    if (sortFilter && tagFilter) {
-      q = query(
-        collection(db, "thumbnails"),
-        limit(80),
-        orderBy("statistics.favorites"),
-        where("tags", "array-contains", tagFilter)
+    const queryArgs = [collection(db, "thumbnails"), limit(80)]; // Implement pagination
+    if (tagFilter) {
+      queryArgs.push(
+        where("versions.current.tags", "array-contains", tagFilter)
       );
-    } else if (sortFilter && !tagFilter) {
-      q = query(
-        collection(db, "thumbnails"),
-        limit(80),
-      );
-    } else if (!sortFilter && tagFilter) {
-      q = query(
-        collection(db, "thumbnails"),
-        limit(80),
-        where("tags", "array-contains", tagFilter)
-      );
-    } else if (!sortFilter && !tagFilter) {
-      q = query(collection(db, "thumbnails"), limit(80));
     }
-
+    if (sortFilter === "Popular") {
+      queryArgs.push(orderBy("meta.popularityScore", "desc"));
+    } else if (sortFilter === "Recently Added") {
+      queryArgs.push(orderBy("meta.submittedAt", "desc"));
+    } else if (sortFilter === "New on YouTube") {
+      queryArgs.push(orderBy("video.publishedAt", "desc"));
+    }
+    const q = query(...queryArgs);
     const querySnapshot = await getDocs(q);
     const fetchedData = querySnapshot.docs.map((doc) => ({
       id: doc.id,

@@ -8,7 +8,9 @@ export default function TagPage({ params }) {
   const pageSort = sortFilters.find(
     (sortFilter) => slugifyLower(sortFilter) === params.sortSlug
   );
-  const pageTag = tags.find((obj) => slugifyLower(obj.name) === params.tagSlug);
+  const pageTag = tags.find(
+    (tagObj) => slugifyLower(tagObj.name) === params.tagSlug
+  );
 
   if (!pageSort || !pageTag) {
     notFound();

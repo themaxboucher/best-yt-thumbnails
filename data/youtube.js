@@ -1,6 +1,7 @@
 "use server";
 
 import { google } from "googleapis";
+import dynamic from "next/dynamic";
 
 const youtube = google.youtube({
   version: "v3",
@@ -42,23 +43,42 @@ export async function fetchYouTubeData(id) {
     const channel = channels[0];
 
     const thumbnailData = {
-      channel: {
-        id: video.snippet.channelId,
-        thumbnails: channel.snippet.thumbnails,
-        customUrl: channel.snippet.customUrl,
-        title: video.snippet.channelTitle,
-        subscriberCount: channel.statistics.subscriberCount,
+      dynamic: {
+        channel: {
+          thumbnails: channel.snippet.thumbnails,
+          customUrl: channel.snippet.customUrl,
+          title: video.snippet.channelTitle,
+          subscriberCount: channel.statistics.subscriberCount,
+        },
+        video: {
+          thumbnails: video.snippet.thumbnails,
+          publishedAt: video.snippet.publishedAt,
+          title: video.snippet.title,
+          viewCount: video.statistics.viewCount,
+        },
       },
-      public: false,
-      addedAt: "",
-      statistics: { favorites: 0, saves: 0 },
-      tags: [],
-      thumbnails: video.snippet.thumbnails,
-      video: {
-        id: video.id,
-        publishedAt: video.snippet.publishedAt,
-        title: video.snippet.title,
-        viewCount: video.statistics.viewCount,
+      submit: {
+        meta: {
+          public: false,
+          submittedAt: null,
+          submittedBy: null,
+          popularityScore: 0,
+          favoritedBy: [],
+          savedBy: [],
+        },
+        statistics: { favorites: 0, saves: 0 },
+        versions: {
+          current: {
+            title: video.snippet.title,
+            thumbnails: video.snippet.thumbnails,
+            tags: [],
+          },
+          previous: [],
+        },
+        video: {
+          id: video.id,
+          publishedAt: video.snippet.publishedAt,
+        },
       },
     };
     return thumbnailData;

@@ -6,7 +6,6 @@ import { FaBookmark, FaFire } from "react-icons/fa6";
 import { auth } from "@/data/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { redirect } from "next/navigation";
-import LogoutButton from "@/components/auth/logout-button";
 import SettingsButton from "@/components/settings-button";
 import ButtonGroup from "@/components/ui/button-group";
 
@@ -38,7 +37,6 @@ export default function AccountPage() {
             </div>
           </div>
           <ButtonGroup>
-            <LogoutButton />
             <SettingsButton />
           </ButtonGroup>
         </div>

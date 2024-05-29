@@ -1,6 +1,6 @@
 "use client";
 
-import writeThumbnailDoc from "@/actions/writeThumbnailDoc";
+import createThumbnailDoc from "@/actions/createThumbnailDoc";
 import Tag from "@/components/tag";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
@@ -14,38 +14,40 @@ import { CgSpinner } from "react-icons/cg";
 import SubmitFormSuccess from "./submit-form-success";
 import SubmitPreview from "./submit-preview";
 
-export default function SubmitForm() {
+export default function SubmitForm(userId) {
   const [URL, setURL] = useState(""); // Not sure if nessecary
-  const [thumbnailData, setThumbnailData] = useState(null);
+  const [thumbPreviewData, setThumbPreviewData] = useState(null);
+  const [thumbSubmitData, setThumbSubmitData] = useState(null);
   const [isLoadingChange, setIsLoadingChange] = useState(false);
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
-  const [isValidURL, setIsValidURL] = useState(true);
+  const [isValidInput, setIsValidInput] = useState(true);
   const [selectedTags, setSelectedTags] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   async function onChangeHandler(e) {
     setURL(e.target.value);
     if (e.target.value === "") {
-      setIsValidURL(true);
+      setIsValidInput(true);
     } else if (isValidYouTubeURL(e.target.value)) {
-      setIsValidURL(true);
+      setIsValidInput(true);
       setIsLoadingChange(true);
-      const videoID = getYouTubeVideoId(e.target.value);
-      const thumbnailObj = await fetchYouTubeData(videoID);
+      const videoId = getYouTubeVideoId(e.target.value);
+      const ytData = await fetchYouTubeData(videoId);
       setIsLoadingChange(false);
-      if (!thumbnailObj) {
-        setIsValidURL(false);
-        return;
+      if (!ytData) {
+        setIsValidInput(false);
+      } else {
+        setThumbPreviewData(ytData.dynamic);
+        setThumbSubmitData(ytData.submit);
       }
-      setThumbnailData(thumbnailObj);
     } else {
-      setIsValidURL(false);
+      setIsValidInput(false);
     }
   }
 
   async function onSubmitHandler(e) {
     e.preventDefault();
-    if (!isValidURL || !thumbnailData) {
+    if (!isValidInput || !thumbPreviewData || !thumbSubmitData) {
       alert("Please add a valid YouTube video URL.");
       return;
     }
@@ -53,20 +55,22 @@ export default function SubmitForm() {
       alert("Please select at least one tag.");
       return;
     }
+    // FIX: Prevent users from trying to submit an already submitted thumbnail
     setIsLoadingSubmit(true);
 
-    // Modify thumbnail data object
-    const submitData = thumbnailData;
-    submitData.tags = selectedTags;
-    // TODO: remove unessecary data from the object
-    //delete submitData.channel;
-    //delete submitData.video.viewCount;
+    // Modify thumbnail data object to be submitted
+    const finalSubmitObj = thumbSubmitData;
+    finalSubmitObj.versions.current.tags = selectedTags; // Add selected tags
+    finalSubmitObj.meta.submittedBy = userId; // Add id of the submitting user
+    // Add the timestamp of when it gets submitted (will be done in the createThumbnailDoc function)
+    
+    const submitId = finalSubmitObj.video.id;
 
-    const success = await writeThumbnailDoc(submitData);
+    const success = await createThumbnailDoc(finalSubmitObj, submitId);
 
     if (success) {
       setSelectedTags([]);
-      setThumbnailData(null);
+      setThumbPreviewData(null);
       setIsSubmitted(true);
       setIsLoadingSubmit(false);
     } else {
@@ -84,8 +88,8 @@ export default function SubmitForm() {
           <div className="grid grid-cols-2 w-full auto-rows-auto gap-12">
             <SubmitPreview
               isLoadingChange={isLoadingChange}
-              isValidURL={isValidURL}
-              thumbnailData={thumbnailData}
+              isValidURL={isValidInput}
+              thumbnailData={thumbPreviewData}
             />
 
             <div>
@@ -103,7 +107,7 @@ export default function SubmitForm() {
                     onChange={onChangeHandler}
                     placeholder="YouTube video URL"
                     required
-                    invalid={!isValidURL}
+                    invalid={!isValidInput}
                     tabIndex="1"
                   />
                 </div>
