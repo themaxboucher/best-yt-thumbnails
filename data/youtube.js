@@ -61,11 +61,10 @@ export async function fetchYouTubeData(id) {
           public: false,
           submittedAt: null,
           submittedBy: null,
-          popularityScore: 0,
           favoritedBy: [],
           savedBy: [],
         },
-        statistics: { favorites: 0, saves: 0 },
+        statistics: { favorites: 0 },
         versions: {
           current: {
             title: video.snippet.title,

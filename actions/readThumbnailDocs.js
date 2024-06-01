@@ -20,9 +20,11 @@ export default async function readThumbnailDocs(sortFilter, tagFilter) {
       );
     }
     if (sortFilter === "Popular") {
-      queryArgs.push(orderBy("meta.popularityScore", "desc"));
+      queryArgs.push(orderBy("statistics.favorites", "desc"));
     } else if (sortFilter === "Recently Added") {
       queryArgs.push(orderBy("meta.submittedAt", "desc"));
+    } else if (sortFilter === "Popular on YouTube") {
+      queryArgs.push(orderBy("video.viewCount", "desc"));
     } else if (sortFilter === "New on YouTube") {
       queryArgs.push(orderBy("video.publishedAt", "desc"));
     }

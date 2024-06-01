@@ -28,13 +28,11 @@ export default async function updateStatistic({
   const isSave = type === "save";
 
   const thumbUpdateArg = {
-    "meta.popularityScore": !remove ? increment(1) : increment(-1),
     ...(isFavorite && {
       "statistics.favorites": !remove ? increment(1) : increment(-1),
       "meta.favoritedBy": !remove ? arrayUnion(userId) : arrayRemove(userId),
     }),
     ...(isSave && {
-      "statistics.saves": !remove ? increment(1) : increment(-1),
       "meta.savedBy": !remove ? arrayUnion(userId) : arrayRemove(userId),
     }),
   };
