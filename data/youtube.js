@@ -76,7 +76,7 @@ export async function fetchYouTubeData(id) {
         video: {
           id: video.id,
           publishedAt: video.snippet.publishedAt,
-          viewCount: video.statistics.viewCount,
+          viewCount: parseInt(video.statistics.viewCount, 10),
         },
       },
     };
