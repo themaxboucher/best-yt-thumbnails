@@ -15,7 +15,17 @@ export default async function readThumbnailDoc(videoId) {
       id: doc.id,
       ...doc.data(),
     }));
-    return fetchedData[0];
+
+    // Turn Firestore timestamps into strings
+    const thumbDoc = fetchedData[0];
+    thumbDoc.meta.submittedAt = thumbDoc.meta.submittedAt
+      .toDate()
+      .toDateString();
+    thumbDoc.video.publishedAt = thumbDoc.video.publishedAt
+      .toDate()
+      .toDateString();
+
+    return thumbDoc;
   } catch (error) {
     console.log(error);
     return false;
