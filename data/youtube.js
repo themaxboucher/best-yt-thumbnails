@@ -1,7 +1,6 @@
 "use server";
 
 import { google } from "googleapis";
-import dynamic from "next/dynamic";
 
 const youtube = google.youtube({
   version: "v3",
@@ -78,6 +77,7 @@ export async function fetchYouTubeData(id) {
         video: {
           id: video.id,
           publishedAt: video.snippet.publishedAt,
+          viewCount: video.statistics.viewCount,
         },
       },
     };

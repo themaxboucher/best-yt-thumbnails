@@ -53,7 +53,7 @@ export default async function ThumbnailPage({ params }) {
                 videoId={thumbnailData.video.id}
               />
               <YTVideoStats
-                viewCount={dynamicYoutubeData.video.viewCount}
+                viewCount={thumbnailData.video.viewCount}
                 publishedAt={dynamicYoutubeData.video.publishedAt}
               />
             </div>
