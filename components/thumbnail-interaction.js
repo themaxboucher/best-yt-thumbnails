@@ -107,10 +107,13 @@ export default function ThumbnailInteraction({
 
   return (
     <>
-      <div className="flex justify-end items-center gap-1 text-slate-400 text-xs">
+      <div
+        className="flex justify-end items-center gap-1 text-slate-400 text-xs"
+        title={isFavorite ? "Favorite thumbnail" : "Save thumbnail"}
+      >
         <button onClick={onClickHandler} className={classes} disabled={loading}>
-          {isSave && <FaBookmark className="size-4" />}
-          {isFavorite && <FaFire className="size-4" />}
+          {isSave && <FaBookmark className="size-[0.95rem]" />}
+          {isFavorite && <FaFire className="size-[0.95rem]" />}
         </button>
         {!big && statNum >= 0 && (
           <div className="text-slate-700 font-medium ">

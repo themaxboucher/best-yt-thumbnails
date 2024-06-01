@@ -3,6 +3,7 @@ import Tag from "./tag";
 import ThumbnailInteraction from "./thumbnail-interaction";
 import Link from "next/link";
 import { tags } from "@/data/tags";
+import ThumbnailViews from "./thumbnail-views";
 
 export default function ThumbnailCard(props) {
   const latestVersion = props.versions.current;
@@ -42,21 +43,16 @@ export default function ThumbnailCard(props) {
               </div>
             ))}
           </div>
-          <div className="absolute w-5 z-10 right-0 top-0 bottom-0 h-full bg-gradient-to-r from-transparent to-white to-75%"></div>
+          <div className="absolute w-5 z-10 right-0 top-0 bottom-0 h-full bg-gradient-to-r from-transparent to-white"></div>
         </div>
-        <div className="flex justify-end items-center gap-3 w-min h-full">
-          <ThumbnailInteraction
-            type="save"
-            number={props.meta.savedBy.length}
-            savedBy={props.meta.savedBy}
-            thumbnailId={props.id}
-          />
+        <div className="flex justify-end items-center gap-2 w-min h-full pl-4">
           <ThumbnailInteraction
             type="favorite"
             number={props.statistics.favorites}
             favoritedBy={props.meta.favoritedBy}
             thumbnailId={props.id}
           />
+          <ThumbnailViews viewCount={props.video.viewCount} />
         </div>
       </div>
     </div>
