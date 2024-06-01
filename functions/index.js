@@ -36,10 +36,7 @@ exports.updateViewCount = functions.scheduler.onSchedule(
         });
 
         if (response.data.items.length > 0) {
-          const viewCount = parseInt(
-            response.data.items[0].statistics.viewCount,
-            10
-          );
+          const viewCount = response.data.items[0].statistics.viewCount;
           await thumbnailDoc.ref.update({
             "video.viewCount": viewCount,
           });
