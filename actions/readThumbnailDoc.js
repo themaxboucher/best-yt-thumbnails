@@ -11,21 +11,29 @@ export default async function readThumbnailDoc(videoId) {
       where("video.id", "==", videoId)
     );
     const querySnapshot = await getDocs(q);
-    const fetchedData = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const fetchedData = querySnapshot.docs.map((doc) => {
+      // Get the document data
+      const data = doc.data();
 
-    // Turn Firestore timestamps into strings
-    const thumbDoc = fetchedData[0];
-    thumbDoc.meta.submittedAt = thumbDoc.meta.submittedAt
-      .toDate()
-      .toDateString();
-    thumbDoc.video.publishedAt = thumbDoc.video.publishedAt
-      .toDate()
-      .toDateString();
+      // Destructure nested fields to modify them
+      const { meta, video } = data;
 
-    return thumbDoc;
+      return {
+        id: doc.id,
+        ...data,
+
+        // Turn Firestore timestamps into strings
+        meta: {
+          ...meta,
+          submittedAt: meta.submittedAt.toDate().toDateString(),
+        },
+        video: {
+          ...video,
+          publishedAt: video.publishedAt.toDate().toDateString(),
+        },
+      };
+    });
+    return fetchedData[0];
   } catch (error) {
     console.log(error);
     return false;

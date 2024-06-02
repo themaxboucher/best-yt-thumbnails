@@ -30,10 +30,28 @@ export default async function readThumbnailDocs(sortFilter, tagFilter) {
     }
     const q = query(...queryArgs);
     const querySnapshot = await getDocs(q);
-    const fetchedData = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const fetchedData = querySnapshot.docs.map((doc) => {
+      // Get the document data
+      const data = doc.data();
+
+      // Destructure nested fields to modify them
+      const { meta, video } = data;
+
+      return {
+        id: doc.id,
+        ...data,
+
+        // Turn Firestore timestamps into strings
+        meta: {
+          ...meta,
+          submittedAt: meta.submittedAt.toDate().toDateString(),
+        },
+        video: {
+          ...video,
+          publishedAt: video.publishedAt.toDate().toDateString(),
+        },
+      };
+    });
     return fetchedData;
   } catch (error) {
     console.log(error);
