@@ -6,12 +6,14 @@ export default async function ThumbnailGrid({ sortFilter, tagFilter }) {
   return (
     <>
       {thumbnails.length !== 0 ? (
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-1 w-full auto-rows-auto gap-6">
-          {thumbnails.map((thumbnail, index) => (
-            <li key={thumbnail.id} className="list-none">
-              <ThumbnailCard {...thumbnail} index={index} />
-            </li>
-          ))}
+        <div className="flex flex-col justify-start items-center w-full">
+          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 auto-rows-auto gap-6">
+            {thumbnails.map((thumbnail, index) => (
+              <li key={thumbnail.id} className="list-none">
+                <ThumbnailCard {...thumbnail} index={index} />
+              </li>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="mt-10 flex justify-center items-center text-center">

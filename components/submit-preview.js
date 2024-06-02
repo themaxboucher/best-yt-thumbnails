@@ -12,7 +12,7 @@ export default function SubmitPreview({
     <div
       className={`flex flex-col gap-4 ease-out duration-300 ${
         isLoadingChange && "animate-pulse"
-      } ${thumbnailData && (!isValidURL || URL === "") && "opacity-50"}`}
+      } ${thumbnailData && (!isValidURL) && "opacity-50"}`}
     >
       <div className="overflow-hidden rounded-xl">
         {thumbnailData ? (
@@ -32,7 +32,7 @@ export default function SubmitPreview({
       ) : (
         <div className="bg-slate-200 my-2 h-5 w-[80%] rounded-lg"></div>
       )}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-row justify-between items-center gap-4 flex-wrap">
         {thumbnailData ? (
           <YTChannelDetails
             profilePic={thumbnailData.channel.thumbnails.high.url}
@@ -57,8 +57,8 @@ export default function SubmitPreview({
           />
         ) : (
           <div className="flex justify-start items-center gap-5 text-sm font-medium text-slate-600">
-            <div className="bg-slate-200 my-2 h-4 w-10 rounded-lg"></div>
-            <div className="bg-slate-200 my-2 h-4 w-10 rounded-lg"></div>
+            <div className="bg-slate-200 my-2 h-4 w-8 rounded-lg"></div>
+            <div className="bg-slate-200 my-2 h-4 w-8 rounded-lg"></div>
           </div>
         )}
       </div>

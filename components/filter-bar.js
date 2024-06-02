@@ -3,7 +3,7 @@ import TagSlider from "./tag-slider";
 
 export default function FilterBar() {
   return (
-    <div className="flex justify-between gap-4 w-full">
+    <div className="flex flex-col items-start sm:flex-row sm:items-center justify-between gap-4 w-full">
       <SortMenu />
       <TagSlider />
     </div>

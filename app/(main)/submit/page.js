@@ -1,5 +1,6 @@
 "use client";
 
+import SectionLarge from "@/components/layout/section-large";
 import SubmitForm from "@/components/submit-form";
 import { auth } from "@/data/firebase";
 import { redirect } from "next/dist/server/api-utils";
@@ -12,5 +13,10 @@ export default function SubmitPage() {
   if (!user && !loading) redirect("/auth/login");
 
   // Only render content if user is authenticated
-  if (user) return <SubmitForm userId={user.uid} />;
+  if (user)
+    return (
+      <SectionLarge>
+        <SubmitForm userId={user.uid} />
+      </SectionLarge>
+    );
 }

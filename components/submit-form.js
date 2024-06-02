@@ -63,7 +63,7 @@ export default function SubmitForm(userId) {
     finalSubmitObj.versions.current.tags = selectedTags; // Add selected tags
     finalSubmitObj.meta.submittedBy = userId; // Add id of the submitting user
     // Add the timestamp of when it gets submitted (will be done in the createThumbnailDoc function)
-    
+
     const submitId = finalSubmitObj.video.id;
 
     const success = await createThumbnailDoc(finalSubmitObj, submitId);
@@ -84,62 +84,60 @@ export default function SubmitForm(userId) {
   return (
     <>
       {!isSubmitted ? (
-        <section className="mx-auto w-full max-w-[80rem] px-10 py-16 flex flex-col justify-start items-center gap-8">
-          <div className="grid grid-cols-2 w-full auto-rows-auto gap-12">
+        <form
+          onSubmit={onSubmitHandler}
+          className="grid grid-cols-1 sm:grid-cols-2 w-full auto-rows-min gap-8 sm:gap-x-12 sm:gap-y-8 overflow-hidden"
+        >
+          <div className="space-y-3 sm:col-start-2 sm:col-end-3 sm:row-start-1 sm:row-end-2 sm:row-span-1 h-min">
+            <label htmlFor="video-url">
+              1. Enter the URL of the video with the thumbnail you want to
+              submit.
+            </label>
+            <Input
+              type="url"
+              name="URL"
+              id="video-url"
+              value={URL}
+              onChange={onChangeHandler}
+              placeholder="YouTube video URL"
+              required
+              invalid={!isValidInput}
+              tabIndex="1"
+            />
+          </div>
+          <div className="sm:col-start-1 sm:col-end-2 sm:row-start-1 sm:row-end-3 sm:row-span-2 mb-4 sm:mb-0 h-min">
             <SubmitPreview
               isLoadingChange={isLoadingChange}
               isValidURL={isValidInput}
               thumbnailData={thumbPreviewData}
             />
-
-            <div>
-              <form onSubmit={onSubmitHandler} className="space-y-8">
-                <div className="space-y-3">
-                  <label htmlFor="video-url">
-                    1. Enter the URL of the video with the thumbnail you want to
-                    submit.
-                  </label>
-                  <Input
-                    type="url"
-                    name="URL"
-                    id="video-url"
-                    value={URL}
-                    onChange={onChangeHandler}
-                    placeholder="YouTube video URL"
-                    required
-                    invalid={!isValidInput}
-                    tabIndex="1"
-                  />
-                </div>
-                <div className="space-y-3">
-                  <label>
-                    2. Select all tags which apply to the thumbnail.
-                  </label>
-                  <div className="flex justify-start items-start gap-2 flex-wrap">
-                    {tags.map((tag, index) => (
-                      <li key={index} className="list-none">
-                        <Tag
-                          {...tag}
-                          select
-                          setSelectedTags={setSelectedTags}
-                          selectedTags={selectedTags}
-                        />
-                      </li>
-                    ))}
-                  </div>
-                </div>
-                <Button disabled={isLoadingSubmit}>
-                  Submit thumbnail
-                  {!isLoadingSubmit ? (
-                    <IoMdArrowRoundForward className="size-4" />
-                  ) : (
-                    <CgSpinner className=" size-4 animate-spin" />
-                  )}
-                </Button>
-              </form>
-            </div>
           </div>
-        </section>
+          <div className="space-y-6 sm:col-start-2 sm:col-end-3 sm:row-start-2 sm:row-end-3 h-min">
+            <div className="space-y-3 md:col-span-2 md:row-span-2">
+              <label>2. Select all tags which apply to the thumbnail.</label>
+              <div className="flex justify-start items-start gap-2 flex-wrap w-full">
+                {tags.map((tag, index) => (
+                  <li key={index} className="list-none">
+                    <Tag
+                      {...tag}
+                      select
+                      setSelectedTags={setSelectedTags}
+                      selectedTags={selectedTags}
+                    />
+                  </li>
+                ))}
+              </div>
+            </div>
+            <Button disabled={isLoadingSubmit}>
+              Submit thumbnail
+              {!isLoadingSubmit ? (
+                <IoMdArrowRoundForward className="size-4" />
+              ) : (
+                <CgSpinner className=" size-4 animate-spin" />
+              )}
+            </Button>
+          </div>
+        </form>
       ) : (
         <SubmitFormSuccess setIsSubmitted={setIsSubmitted} />
       )}

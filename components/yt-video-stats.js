@@ -13,7 +13,7 @@ export default function YTVideoStats({ viewCount, publishedAt, videoRank }) {
           title={`${abbreviateNumber(viewCount)} views`}
         >
           <AiFillEye className="size-4" />
-          <span>{abbreviateNumber(viewCount)}</span>
+          <span className="text-nowrap">{abbreviateNumber(viewCount)}</span>
         </div>
       )}
       {publishedAt && (
@@ -22,7 +22,7 @@ export default function YTVideoStats({ viewCount, publishedAt, videoRank }) {
           title={`Published ${timeAgo(publishedAt)}`}
         >
           <HiCalendar className="size-4" />
-          <span>{timeAgo(publishedAt)}</span>
+          <span className="text-nowrap">{timeAgo(publishedAt)}</span>
         </div>
       )}
       {videoRank && (
@@ -31,7 +31,7 @@ export default function YTVideoStats({ viewCount, publishedAt, videoRank }) {
           title={`Published`}
         >
           <FaArrowAltCircleUp className="size-4" />
-          <span>{videoRank}</span>
+          <span className="text-nowrap">{videoRank}</span>
         </div>
       )}
     </div>
