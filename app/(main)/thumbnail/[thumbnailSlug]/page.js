@@ -40,7 +40,7 @@ export default async function ThumbnailPage({ params }) {
               />
             </div>
           </div>
-          <div className="w-[34rem] border-l border-slate-100 px-10 py-12 flex flex-col justify-start items-stretch gap-8 min-h-full">
+          <div className="w-[34rem] border-l border-slate-100 bg-white px-10 py-12 flex flex-col justify-start items-stretch gap-8 min-h-full">
             <YTChannelDetails
               profilePic={dynamicYoutubeData.channel.thumbnails.high.url}
               channelTitle={dynamicYoutubeData.channel.title}

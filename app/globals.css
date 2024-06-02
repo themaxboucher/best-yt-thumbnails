@@ -30,13 +30,13 @@ p {
     @apply text-slate-900 font-semibold m-0 text-4xl;
   }
   .heading-2 {
-    @apply text-slate-900 font-semibold m-0 text-2xl;
+    @apply text-slate-900 font-semibold m-0 text-3xl;
   }
   .heading-3 {
-    @apply text-slate-900 font-semibold m-0 text-xl;
+    @apply text-slate-900 font-semibold m-0 text-2xl;
   }
   .heading-4 {
-    @apply text-slate-900 font-semibold m-0;
+    @apply text-slate-900 font-semibold m-0 text-xl;
   }
   .heading-5 {
     @apply text-slate-900 font-semibold m-0 text-sm;
