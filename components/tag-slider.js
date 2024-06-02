@@ -35,7 +35,7 @@ export default function TagSlider() {
   }
 
   return (
-    <div className="overflow-hidden flex justify-between items-center relative">
+    <div className="overflow-hidden flex justify-between items-center relative w-full">
       <div
         id="slider"
         className="flex justify-start items-center gap-[0.35rem] no-scrollbar overflow-x-scroll scroll-smooth h-full"

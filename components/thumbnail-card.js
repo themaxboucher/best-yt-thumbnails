@@ -12,7 +12,7 @@ export default function ThumbnailCard(props) {
   );
 
   return (
-    <div className="w-full max-w-80 min-w-48 flex flex-col gap-2 relative">
+    <div className="w-full max-w-96 flex flex-col gap-2 relative">
       <Link
         href={`thumbnail/${props.video.id}`}
         className="relative rounded-lg overflow-hidden group bg-slate-50 flex justify-center items-center"

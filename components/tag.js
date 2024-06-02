@@ -93,7 +93,7 @@ export default function Tag({
     },
   };
   const classes = `text-nowrap font-medium px-2 py-1 text-bl rounded-md ease-out duration-300 ${
-    big ? "text-sm border-[1.3px]" : "text-xs border"
+    big ? "text-sm border-[1.45px]" : "text-xs border-[1.3px]"
   }  ${colorClasses[color || "slate"][tagIsActive ? "active" : "inactive"]}`;
 
   return (
