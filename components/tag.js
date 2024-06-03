@@ -46,7 +46,11 @@ export default function Tag({
         return `/${currentSortFilter}/${slugifyLower(name)}`;
       }
     } else {
-      return `/${slugifyLower(sortFilters[0])}/${slugifyLower(name)}`;
+      if (name == "All") {
+        return `/${slugifyLower(sortFilters[0])}`;
+      } else {
+        return `/${slugifyLower(sortFilters[0])}/${slugifyLower(name)}`;
+      }
     }
   }
 
