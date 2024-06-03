@@ -14,7 +14,7 @@ export default function ThumbnailCard(props) {
   return (
     <div className="w-full max-w-96 flex flex-col gap-2 relative">
       <Link
-        href={`thumbnail/${props.video.id}`}
+        href={`/thumbnail/${props.video.id}`}
         className="relative rounded-lg overflow-hidden group bg-slate-50 flex justify-center items-center"
       >
         <div className="opacity-0 group-hover:opacity-100 ease-out duration-300 bg-gradient-to-t from-slate-950/80 to-transparent to-70% absolute inset-0 z-10 size-full flex flex-col justify-end p-4">
