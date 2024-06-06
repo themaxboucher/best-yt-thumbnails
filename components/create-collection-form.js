@@ -61,7 +61,12 @@ export default function CreateCollectionForm({ setIsCreateCollection }) {
           <div className="size-full space-y-4">
             <div className="space-y-1">
               <InputLabel htmlFor="name">Name</InputLabel>
-              <Input onChange={onNameChangeHandler} id="name" required={true} />
+              <Input
+                onChange={onNameChangeHandler}
+                id="name"
+                required={true}
+                placeholder='I.e. "Fitness"'
+              />
             </div>
             <div className="space-y-1">
               <InputLabel htmlFor="description">Description</InputLabel>
@@ -69,6 +74,7 @@ export default function CreateCollectionForm({ setIsCreateCollection }) {
                 onChange={onDescriptionChangeHandler}
                 id="description"
                 rows={4}
+                placeholder="How would you describe this collection?"
               />
             </div>
           </div>
