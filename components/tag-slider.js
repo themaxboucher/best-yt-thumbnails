@@ -1,13 +1,37 @@
 "use client";
 
-import { tags } from "@/data/tags";
 import Tag from "./tag";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function TagSlider() {
+export default function TagSlider({ tags, isUserLists }) {
   const [showLeftArrow, setShowleftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+  const sliderRef = useRef(null);
+  const parentRef = useRef(null);
+
+  // Check if the list of tags is scrollable
+  useEffect(() => {
+    const checkIsScrollable = () => {
+      if (parentRef.current && sliderRef.current) {
+        const parentWidth = parentRef.current.clientWidth;
+        const sliderWidth = sliderRef.current.clientWidth;
+
+        if (sliderWidth >= parentWidth) {
+          setShowRightArrow(true);
+        } else {
+          setShowRightArrow(false);
+        }
+      }
+    };
+
+    checkIsScrollable();
+
+    window.addEventListener("resize", checkIsScrollable);
+    return () => {
+      window.removeEventListener("resize", checkIsScrollable);
+    };
+  }, []);
 
   function scrollHandler(event) {
     const slider = event.target;
@@ -35,15 +59,22 @@ export default function TagSlider() {
   }
 
   return (
-    <div className="overflow-hidden flex justify-between items-center relative w-full">
+    <div
+      className="overflow-hidden flex justify-between items-center relative w-full"
+      ref={parentRef}
+    >
       <div
         id="slider"
         className="flex justify-start items-center gap-[0.35rem] no-scrollbar overflow-x-scroll scroll-smooth h-full"
         onScroll={scrollHandler}
+        ref={sliderRef}
       >
-        {[{ name: "All" }].concat(tags).map((tag, index) => (
-          <li key={index} className="list-none h-full flex justify-center items-center">
-            <Tag {...tag} big />
+        {tags.map((tag, index) => (
+          <li
+            key={index}
+            className="list-none h-full flex justify-center items-center"
+          >
+            <Tag {...tag} big isUserList={isUserLists} />
           </li>
         ))}
       </div>

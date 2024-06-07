@@ -2,7 +2,7 @@ import LoadingTag from "./loading-tag";
 
 export default function LoadingCard() {
   return (
-    <div className="w-full max-w-72 min-w-48 flex flex-col gap-2 relative animate-pulse">
+    <div className="w-full max-w-96 flex flex-col gap-2 relative animate-pulse">
       <div className="relative rounded-lg overflow-hidden group">
         <div className="aspect-video object-cover bg-slate-100 bg-gradient-to-t from-slate-100 to-transparent"></div>
       </div>

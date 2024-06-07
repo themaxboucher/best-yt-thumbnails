@@ -14,7 +14,7 @@ import { CgSpinner } from "react-icons/cg";
 import SubmitFormSuccess from "./submit-form-success";
 import SubmitPreview from "./submit-preview";
 
-export default function SubmitForm(userId) {
+export default function SubmitForm({ userId }) {
   const [URL, setURL] = useState(""); // Not sure if nessecary
   const [thumbPreviewData, setThumbPreviewData] = useState(null);
   const [thumbSubmitData, setThumbSubmitData] = useState(null);

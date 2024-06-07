@@ -1,6 +1,7 @@
-import ThumbnailGrid from "@/components/thumbnail-grid";
-import ThumbnailsLoading from "../(thumbnails)/loading";
+import LoadingGrid from "@/components/loading/loading-cards";
+import { redirect } from "next/navigation";
 
 export default function AccountPage() {
-  return <ThumbnailGrid />;
+  redirect("/account/favorites");
+  return <LoadingGrid rows={4} />;
 }

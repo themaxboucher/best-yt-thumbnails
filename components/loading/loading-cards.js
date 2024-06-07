@@ -1,40 +1,12 @@
+import GridWrapper from "../layout/grid-wrapper";
 import LoadingCard from "./loading-card";
 
-export default function LoadingGrid() {
+export default function LoadingGrid({ rows }) {
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-1 w-full auto-rows-auto gap-6">
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-      <LoadingCard />
-    </div>
+    <GridWrapper>
+      {Array.from({ length: 4 * rows }, (_, index) => (
+        <LoadingCard key={index} />
+      ))}
+    </GridWrapper>
   );
 }

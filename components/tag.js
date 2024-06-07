@@ -6,6 +6,7 @@ import { sortFilters } from "@/data/sortFilters";
 import slugifyLower from "@/helper-functions/slugifyLower";
 import breakdownSlug from "@/helper-functions/breakdownSlug";
 import { usePathname } from "next/navigation";
+import { FaBookmark, FaCirclePlus, FaFire, FaYoutube } from "react-icons/fa6";
 
 // Needs refactoring
 export default function Tag({
@@ -17,6 +18,7 @@ export default function Tag({
   selectedTags,
   setSelectedTags,
   big,
+  isUserList,
 }) {
   const pathname = usePathname();
 
@@ -26,7 +28,8 @@ export default function Tag({
       (sortFilter) =>
         pathname === `/${slugifyLower(sortFilter)}/${slugifyLower(name)}`
     ) ||
-    (select && selectedTags.find((selectedtag) => selectedtag === name));
+    (select && selectedTags.find((selectedtag) => selectedtag === name)) ||
+    (isUserList && pathname === `/account/${slugifyLower(name)}`);
 
   // Get current sort filter from the current path
   const slugParts = breakdownSlug(pathname);
@@ -38,7 +41,9 @@ export default function Tag({
 
   // Create the tags link path based on the current sort filter
   function pathConstructor() {
-    if (hasSortFilter) {
+    if (isUserList) {
+      return `/account/${slugifyLower(name)}`;
+    } else if (hasSortFilter) {
       const currentSortFilter = slugStart;
       if (name === "All") {
         return `/${currentSortFilter}`;
@@ -96,14 +101,24 @@ export default function Tag({
       active: "text-purple-600 border-purple-400 bg-purple-100",
     },
   };
-  const classes = `text-nowrap font-medium px-2 py-1 text-bl rounded-md ease-out duration-300 ${
+  const classes = `text-nowrap font-medium px-2 py-1 text-bl rounded-md ease-out duration-300 flex justify-center items-center gap-[0.4rem] ${
     big ? "text-sm border-[1.45px]" : "text-xs border-[1.3px]"
   }  ${colorClasses[color || "slate"][tagIsActive ? "active" : "inactive"]}`;
+
+  const userListIcon =
+    name === "Favorites" ? (
+      <FaFire />
+    ) : name === "Submitted" ? (
+      <FaYoutube />
+    ) : (
+      <FaBookmark />
+    );
 
   return (
     <>
       {!select ? (
         <Link href={pathConstructor()} className={classes}>
+          {isUserList && userListIcon}
           {name}
         </Link>
       ) : (

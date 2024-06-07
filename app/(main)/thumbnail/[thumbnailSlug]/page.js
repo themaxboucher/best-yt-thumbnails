@@ -21,7 +21,10 @@ export default async function ThumbnailPage({ params }) {
   const youtubeData = await fetchYouTubeData(params.thumbnailSlug);
   const dynamicYoutubeData = youtubeData.dynamic;
 
+  // Current version of the thumbnail
   const latestVersion = thumbnailData.versions.current;
+
+  // Turn tag id strings into full tag objects
   const thumbnailTags = tags.filter((tag) =>
     latestVersion.tags.includes(tag.name)
   );
@@ -82,12 +85,14 @@ export default async function ThumbnailPage({ params }) {
               ))}
             </div>
             <div className="hidden md:flex justify-start items-center gap-3">
+              {/* Hide until collections feature is fully finished
               <ThumbnailInteraction
                 thumbnailId={thumbnailData.id}
                 type="save"
                 savedBy={thumbnailData.meta.savedBy}
                 big
               />
+            */}
               <ThumbnailInteraction
                 thumbnailId={thumbnailData.id}
                 type="favorite"
