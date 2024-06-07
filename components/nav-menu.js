@@ -59,9 +59,11 @@ export default function NavMenu() {
                     </Link>
                   )}
                 </Menu.Item>
-
+                {/* Hide until theme select feature is created
                 <ThemeSelect />
+                */}
                 <div className="p-2 flex flex-col text-slate-500">
+                  {/* Hide link untill settings page is created
                   <Menu.Item className="p-2 rounded-lg">
                     {({ active }) => (
                       <Link
@@ -72,6 +74,7 @@ export default function NavMenu() {
                       </Link>
                     )}
                   </Menu.Item>
+                  */}
                   <Menu.Item className="p-2 rounded-lg">
                     {({ active }) => (
                       <a
@@ -118,7 +121,9 @@ export default function NavMenu() {
                       Log in
                     </Button>
                   </div>
+                  {/* Hide until theme select feature is created
                   <ThemeSelect />
+                  */}
                 </Menu.Items>
               </Transition>
             </Menu>
