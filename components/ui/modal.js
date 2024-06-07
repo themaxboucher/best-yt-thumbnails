@@ -33,7 +33,7 @@ export default function Modal({ children, isOpen, closeModal }) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="transform overflow-hidden rounded-xl bg-white py-8 px-5 text-left align-middle shadow-xl flex flex-col justify-between items-center gap-9 transition-all">
+                <Dialog.Panel className="transform overflow-hidden rounded-xl bg-white py-8 px-5 text-left align-middle shadow-xl flex flex-col justify-between items-center gap-8 transition-all">
                   {children}
                 </Dialog.Panel>
               </Transition.Child>

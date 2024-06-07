@@ -2,10 +2,11 @@
 
 import Logo from "@/components/logo";
 import { auth } from "@/data/firebase";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function AuthLayout({ children }) {
+  notFound(); // Hide until fully developed
   const [user, loading] = useAuthState(auth);
 
   // Block page from authenticated users
