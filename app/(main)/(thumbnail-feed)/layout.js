@@ -6,9 +6,11 @@ import SectionLarge from "@/components/layout/section-large";
 export default function ThumbnailsLayout({ children }) {
   return (
     <>
+      {/* 
       <NoUserContent>
-        <HeroSection />
+        <HeroSection /> 
       </NoUserContent>
+      */}
       <SectionLarge>
         <FilterBar />
         {children}

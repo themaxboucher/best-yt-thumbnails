@@ -23,7 +23,7 @@ export default function SignupForm() {
           <div className="w-full h-[1px] bg-slate-100"></div>
           */}
           <GoogleButton />
-
+          {/* 
           <div>
             <span className="text-[0.65rem] block text-slate-400 text-center">
               By joining you agree to the{" "}
@@ -31,6 +31,7 @@ export default function SignupForm() {
               <a className="underline">Privacy Policy</a>
             </span>
           </div>
+          */}
 
           {/*
             <Button

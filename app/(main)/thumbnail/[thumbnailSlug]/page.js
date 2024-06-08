@@ -32,7 +32,7 @@ export default async function ThumbnailPage({ params }) {
   return (
     <>
       <section>
-        <div className="flex flex-col md:flex-row justify-between items-stretch">
+        <div className="flex flex-col md:flex-row justify-between items-stretch border-b border-slate-100">
           <div className="p-10 sm:p-12 size-full flex justify-center items-center">
             <div className="relative aspect-video w-full sm:max-w-[28rem] md:max-w-[38rem] bg-slate-50 overflow-hidden rounded-xl shadow-xl">
               <Image
