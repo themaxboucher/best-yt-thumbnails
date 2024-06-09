@@ -53,12 +53,14 @@ export default async function ThumbnailPage({ params }) {
                 customUrl={dynamicYoutubeData.channel.customUrl}
               />
               <div className="md:hidden flex justify-start items-center gap-3">
+                {/* Hide until collections feature is fully finished
                 <ThumbnailInteraction
                   thumbnailId={thumbnailData.id}
                   type="save"
                   savedBy={thumbnailData.meta.savedBy}
                   big
                 />
+                */}
                 <ThumbnailInteraction
                   thumbnailId={thumbnailData.id}
                   type="favorite"
