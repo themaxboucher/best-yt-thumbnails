@@ -80,7 +80,7 @@ export const tags = [
     color: "green",
   },
   {
-    name: "Color Constrast",
+    name: "Color",
     description:
       "Thumbnails that leverage color contrast and often high levels of color saturation to stand out.",
     color: "orange",
