@@ -5,13 +5,14 @@ import SectionLarge from "@/components/layout/section-large";
 import TagSlider from "@/components/tag-slider";
 import { auth } from "@/data/firebase";
 import { userLists } from "@/data/userLists";
+import { redirect } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function AccountLayout({ children }) {
   const [user, loading] = useAuthState(auth);
 
   // Block page from non authenticated users
-  if (!user && !loading) redirect("/auth/login");
+  if (!user && !loading) redirect("/");
 
   // Only render content if user is authenticated
   if (user)
