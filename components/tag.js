@@ -117,7 +117,7 @@ export default function Tag({
   return (
     <>
       {!select ? (
-        <Link href={pathConstructor()} className={classes}>
+        <Link href={pathConstructor()} className={classes} title={description}>
           {isUserList && userListIcon}
           {name}
         </Link>

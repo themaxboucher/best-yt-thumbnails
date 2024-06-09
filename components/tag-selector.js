@@ -7,6 +7,7 @@ export default function TagSelector({
   classes,
   selectedTags,
   setSelectedTags,
+  desciption,
 }) {
   const tagCheckbox = useRef();
 
@@ -22,7 +23,12 @@ export default function TagSelector({
 
   return (
     <div>
-      <button className={classes} type="button" onClick={onClickHandler}>
+      <button
+        className={classes}
+        type="button"
+        onClick={onClickHandler}
+        title={desciption}
+      >
         {name}
       </button>
       <input className="hidden" type="checkbox" ref={tagCheckbox} />
