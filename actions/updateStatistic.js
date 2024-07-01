@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import { db } from "@/data/firebase";
 import {
@@ -54,5 +54,5 @@ export default async function updateStatistic({
       : doc(db, "users", userId);
 
   await updateDoc(doc(db, "thumbnails", thumbnailId), thumbUpdateArg);
-  await updateDoc(userDocPath, userUpdateArg);
+  // await updateDoc(userDocPath, userUpdateArg); 
 }
