@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function AccountCollectionsPage() {
-  notFound(); // Hide untily collections feature is ready
+  notFound(); // Hide until collections feature is ready
   const [user, loading] = useAuthState(auth);
   const [collections, setCollections] = useState(null);
 
