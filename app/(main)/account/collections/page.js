@@ -21,7 +21,7 @@ export default function AccountCollectionsPage() {
       }
       fetchCollections();
     }
-  }, [loading]);
+  }, [loading, user.uid]);
   return (
     <>
       {collections === null ? (

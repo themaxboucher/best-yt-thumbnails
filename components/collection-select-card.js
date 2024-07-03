@@ -60,7 +60,10 @@ export default function CollectionSelectCard({
       }`}
     >
       <div className="flex justify-between items-center gap-4">
-        <CollectionCover collectionSaved={collection.saved} />
+        <CollectionCover
+          collectionSaved={collection.saved}
+          collectionName={collection.name}
+        />
         <div className="text-left">
           <h3 className="font-medium text-sm max w-36 truncate">
             {collection.name}

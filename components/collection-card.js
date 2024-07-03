@@ -14,18 +14,21 @@ export default function CollectionCard({ name, numSaved, saved }) {
           <Image
             className="aspect-video object-cover absolute bottom-0 right-0 left-0 shadow-[0px_-4px_6px_-1px_rgba(0,0,0,0.1)] bg-slate-100 border border-slate-100 rounded-lg overflow-hidden"
             src={"https://i.ytimg.com/vi/3BXP5XAkPt4/sddefault.jpg"}
+            alt={"Thumbnail"}
             width={640}
             height={480}
           />
           <Image
             className="aspect-video object-cover absolute -z-10 bottom-3 group-hover:bottom-[1.15rem] right-0 left-0 shadow-[0px_-4px_6px_-1px_rgba(0,0,0,0.1)] bg-slate-100 border border-slate-100 rounded-lg overflow-hidden ease-out duration-150"
             src={"https://i.ytimg.com/vi/3BXP5XAkPt4/sddefault.jpg"}
+            alt={"Thumbnail"}
             width={640}
             height={480}
           />
           <Image
             className="aspect-video object-cover absolute -z-20 bottom-6 group-hover:bottom-9 right-0 left-0 bg-slate-100 border border-slate-100 rounded-lg overflow-hidden ease-out duration-300"
             src={"https://i.ytimg.com/vi/3BXP5XAkPt4/sddefault.jpg"}
+            alt={"Thumbnail"}
             width={640}
             height={480}
           />

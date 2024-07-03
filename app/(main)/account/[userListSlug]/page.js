@@ -34,7 +34,7 @@ export default function AccountListPage({ params }) {
       }
       fetchThumbnails(params.userListSlug);
     }
-  }, [loading]);
+  }, [loading, pageList.name, user.uid, params.userListSlug]);
   return (
     <>
       {thumbnails === null ? (

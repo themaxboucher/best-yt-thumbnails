@@ -49,7 +49,7 @@ export default function ThumbnailInteraction({
           (isSave && savedBy.includes(user.uid)));
       setIsActive(initiallyActive);
     }
-  }, [user]);
+  }, [user, favoritedBy, isFavorite, isSave, loading, savedBy]);
 
   // Optimistically reflect interaction in the UI
   function toggleFavoriteUI() {

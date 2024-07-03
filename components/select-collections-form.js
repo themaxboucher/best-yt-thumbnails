@@ -25,7 +25,7 @@ export default function SelectCollectionsForm({
       }
       fetchCollections();
     }
-  }, [loading]);
+  }, [loading, user.uid]);
 
   // Show create collection form
   function onClickHandler() {

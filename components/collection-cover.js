@@ -4,7 +4,7 @@ import readThumbnailDoc from "@/actions/readThumbnailDoc";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function CollectionCover({ collectionSaved }) {
+export default function CollectionCover({ collectionSaved, collectionName }) {
   const [coverThumb, setCoverThumb] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -29,6 +29,7 @@ export default function CollectionCover({ collectionSaved }) {
       {coverThumb && (
         <Image
           className="aspect-video object-cover"
+          alt={collectionName}
           src={coverThumb}
           fill
           priority
